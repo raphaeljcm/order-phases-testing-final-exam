@@ -3,7 +3,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 
-export function ScoopOptions({ name, imagePath, updateItemCount }) {
+export function ScoopOption({ name, imagePath, updateItemCount }) {
   const [isValid, setIsValid] = useState(true);
   const handleChange = (event) => {
     const currentValue = event.target.value;

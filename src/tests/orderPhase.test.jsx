@@ -80,4 +80,23 @@ test('order phases for happy path', async () => {
   // I need to await anything to avoid those fucking test error?!
   await screen.findByRole('spinbutton', { name: 'Chocolate' });
   await screen.findByRole('checkbox', { name: 'M&Ms' });
+}); 
+
+it('should not display toppings heading if no toppings were ordered', async () => {
+  render(<App />);
+
+  // add ice cream scoops and toppings
+  const chocolateScoop = await screen.findByRole('spinbutton', {
+    name: 'Chocolate'
+  });
+  userEvent.clear(chocolateScoop);
+  userEvent.type(chocolateScoop, '2');
+
+  // find and click order button
+  const orderButton = screen.getByRole('button', { name: /order sundae!/i });
+  userEvent.click(orderButton);
+
+  // check if topping heading is available
+  const toppingHeading = screen.queryByText('Toppings: $', { exact: false });
+  expect(toppingHeading).not.toBeInTheDocument();
 });

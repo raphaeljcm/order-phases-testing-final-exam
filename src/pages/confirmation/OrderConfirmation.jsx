@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import { useOrderDetails } from "../../contexts/OrderDetails";
+import { AlertBanner } from '../common/AlertBanner';
 
 export function OrderConfirmation({ setOrderPhase }) {
   const [orderNumber, setOrderNumber] = useState(null);
+  const [error, setError] = useState(false);
   const [, , resetOrder] = useOrderDetails();
 
   useEffect(() => {
@@ -12,9 +14,13 @@ export function OrderConfirmation({ setOrderPhase }) {
         setOrderNumber(res.data.orderNumber);
       })
       .catch(err => {
-        // Todo
+        setError(true);
       })
   }, []);
+
+  if(error) {
+    return <AlertBanner />;
+  }
 
   return (
     <>

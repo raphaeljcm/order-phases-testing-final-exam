@@ -16,8 +16,6 @@ export function OrderConfirmation({ setOrderPhase }) {
       })
   }, []);
 
-  // TODO - DISPLAY LOADING WHEN ORDERNUMBER IS NULL
-
   return (
     <>
       {orderNumber ? (
@@ -31,7 +29,7 @@ export function OrderConfirmation({ setOrderPhase }) {
           }}>Create new order</button>
         </div>
       ) : (
-        <div>Loading</div>
+        <div>Loading...</div>
       )}
     </>
   );

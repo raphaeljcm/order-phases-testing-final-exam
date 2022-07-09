@@ -6,6 +6,7 @@ import App from '../App';
 test('order phases for happy path', async () => {
   // render app
   render(<App />);
+
   // add ice cream scoops and toppings
   const chocolateScoop = await screen.findByRole('spinbutton', {
     name: 'Chocolate'
@@ -52,12 +53,18 @@ test('order phases for happy path', async () => {
   userEvent.click(buttonConfirmOrder);
 
   // confirm order number on confirmation page 
+  const loading = screen.getByText('Loading...');
+  expect(loading).toBeInTheDocument();
+
   const thankyouHeader = await screen.findByRole('heading', {
     name: /thank you/i,
   });
   expect(thankyouHeader).toBeInTheDocument();
 
-  const orderNumber = await screen.findByText('Your order number is', { exact: false });
+  const NotLoading = screen.queryByText('Loading...');
+  expect(NotLoading).not.toBeInTheDocument();
+
+  const orderNumber = screen.getByText('Your order number is', { exact: false });
   expect(orderNumber).toBeInTheDocument();
   
   // click new order button on confirmation page
